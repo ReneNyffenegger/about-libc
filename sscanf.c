@@ -63,6 +63,11 @@ int main() {
     );
     printf("ret=%d, str_1=%s, str_2=%s, str_3=%s\n", ret, str_1, str_2, str_3);
 
+    ret = scanf(                                    // Reading a line from STDIN (scanf rather than sscanf).
+        "%[^\n]]%*c",                               // %[^\n]: read anything up to a new line
+        str_1                                       // %*c skip the new line character
+    );
+    printf("You entered %s, ret=%d\n", str_1, ret);
 
 
     free(str_1);
