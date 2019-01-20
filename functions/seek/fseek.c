@@ -36,4 +36,6 @@ int main() {
 
     printf("Word: %s\n", word);
 
+    fclose(f);
+
 }
