@@ -24,20 +24,15 @@ void insert_item(int k, const char* v) {
     tsearch(i, &tree_root, compare_item_keys);
 }
 
-void search_item(int k) {
-
-    item *result = malloc(sizeof(item));
-    result->key = 5;
+void find_item(int k) {
 
  // search
-    void *r = tfind(result, &tree_root, compare_item_keys);
+    item *r = tfind(&k, &tree_root, compare_item_keys);
 
     printf("%d -> %s\n", k, (*(item**)r)->value);
-    free(result);
 }
 
 int main(int argc, char **argv) {
-    void *root = 0;
 
     insert_item(4, "four" );
     insert_item(7, "seven");
