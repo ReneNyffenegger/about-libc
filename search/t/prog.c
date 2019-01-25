@@ -10,7 +10,7 @@ typedef struct {
     const char* value;
 } item;
 
-int compare_item_keys(const void *item_left, const void *item_right) {
+int compare_item_keys(const void *const item_left, const void *const item_right) {
     return ((item*)item_left)->key - ((item*)item_right)->key;
 }
 
@@ -29,7 +29,12 @@ void find_item(int k) {
  // search
     item *r = tfind(&k, &tree_root, compare_item_keys);
 
-    printf("%d -> %s\n", k, (*(item**)r)->value);
+    if (r) {
+      printf("%d -> %s\n", k, (*(item**)r)->value);
+    }
+    else {
+      printf("%d was not found\n", k);
+    }
 }
 
 int main(int argc, char **argv) {
@@ -45,7 +50,8 @@ int main(int argc, char **argv) {
 
     find_item(5);
     find_item(4);
-    find_item(5);
+    find_item(3);
+    find_item(7);
 
     return 0;
 }
