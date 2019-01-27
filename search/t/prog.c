@@ -27,10 +27,10 @@ void insert_item(int k, const char* v) {
 void find_item(int k) {
 
  // search
-    item *r = tfind(&k, &tree_root, compare_item_keys);
+    item **r = tfind(&k, &tree_root, compare_item_keys);
 
     if (r) {
-      printf("%d -> %s\n", k, (*(item**)r)->value);
+      printf("%d -> %s\n", k, (*r)->value);
     }
     else {
       printf("%d was not found\n", k);
