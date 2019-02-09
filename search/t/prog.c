@@ -10,21 +10,50 @@ typedef struct {
     const char* value;
 } item;
 
+
+static const char* visit_str(VISIT order) {
+ //
+ // Helper function for visited_node() to
+ // show the value of the VISIT enum.
+ //
+    if (order == preorder ) { return "preorder" ; }
+    if (order == postorder) { return "postorder"; }
+    if (order == endorder ) { return "endorder" ; }
+    if (order == leaf     ) { return "leaf"     ; }
+}
+
+static void visited_node(const void* node, VISIT order, int level) {
+ //
+ // Function to be called when twalk(…) is instructed to
+ // walk the tree.
+ //
+    int i;
+    item **val = (item**) node;
+
+    for (i=0; i<level; i++) {
+       printf("  ");
+    }
+
+    printf("node %s (%x) was visited (%s)\n", (*val) -> value, node, visit_str(order));
+}
+
 int compare_item_keys(const void *const item_left, const void *const item_right) {
     return ((item*)item_left)->key - ((item*)item_right)->key;
 }
 
-void insert_item(int k, const char* v) {
+static void insert_item(int k, const char* v) {
 
     item *i = malloc(sizeof(item));
     i->key   = k;
     i->value = v;
 
- // insert
+ //
+ // Although named tsearch, it insert an item.
+ //
     tsearch(i, &tree_root, compare_item_keys);
 }
 
-void find_item(int k) {
+static void find_item(int k) {
 
  // search
     item **r = tfind(&k, &tree_root, compare_item_keys);
@@ -52,6 +81,14 @@ int main(int argc, char **argv) {
     find_item(4);
     find_item(3);
     find_item(7);
+
+ //
+ // Walk the tree and call visited_node() for nodes being walked.
+ //
+ // visited_node() is called three times for non-leaf nodes (order = preorder, postorder, endorder),
+ // and once for leaf nodes (order=leaf)
+ //
+    twalk(tree_root, visited_node);
 
     return 0;
 }
