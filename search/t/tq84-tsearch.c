@@ -104,7 +104,7 @@
    pointer and so that can point anywhere and doesn't have to be
    aligned.  */
 
-// TODO #define USE_MALLOC_LOW_BIT 1
+#define USE_MALLOC_LOW_BIT 1
 
 #ifndef USE_MALLOC_LOW_BIT
 
@@ -132,6 +132,8 @@ typedef struct node_t
 #define DEREFNODEPTR(NP) (*(NP))
 
 #else /* USE_MALLOC_LOW_BIT */
+
+#include <stdint.h> // to define uintptr_t
 
 typedef struct node_t
 {
