@@ -80,6 +80,17 @@ static void visited_node(const void* node, VISIT order, int level) {
  // Function to be called when twalk(…) is instructed to
  // walk the tree.
  //
+ // level indicates how far the node is from thee tree's root.
+ //
+ // order indicates when the node is visited:
+ //   Non leaf nodes:
+ //     - preorder (the 1st visit): on the way down
+ //     - postorder (the 2nd visit): coming up from the left subtree and going to the right subtree
+ //     - endorder (the 3rd visit): on the way up
+ //   Leaf nodes:
+ //     Are Only visited once with order
+ //     - leaf
+ //
     int i;
 
  //
